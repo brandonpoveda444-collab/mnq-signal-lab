@@ -1,0 +1,35 @@
+data:
+  source: synthetic       # synthetic | csv | databento
+  csv_path: null
+  databento_dataset: GLBX.MDP3
+  databento_schema: ohlcv-1m
+  databento_symbols: ["MNQ.FUT"]
+  start: "2024-01-02"
+  end: "2024-05-01"
+  timezone: America/New_York
+  cache_path: work/data_cache.pkl
+features:
+  horizon_bars: 5
+  label_threshold_ticks: 2.0
+  tick_size: 0.25
+  min_train_rows: 1500
+model:
+  confidence_threshold: 0.64
+  calibration_fraction: 0.20
+  test_fraction: 0.20
+  n_splits: 4
+  random_state: 42
+costs:
+  commission_per_side: 0.62
+  spread_ticks: 1.0
+  slippage_ticks_per_side: 0.5
+risk:
+  max_daily_loss_usd: 80.0
+  max_trades_per_day: 6
+  session_start: "09:35"
+  session_end: "15:45"
+  flatten_time: "15:55"
+  point_value: 2.0
+  contracts: 1
+  kill_switch: false
+output_dir: outputs/run

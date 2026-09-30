@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mnq-signal-lab"
+version = "0.1.0"
+description = "Prototipo de investigacion para señales intradia de futuros MNQ"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "scikit-learn>=1.4",
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+databento = ["databento>=0.40"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+mnq-lab = "mnq_signal_lab.cli:main"
+mnq-service = "mnq_signal_lab.service:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
