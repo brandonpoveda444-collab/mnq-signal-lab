@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+import os
 from pathlib import Path
 from typing import Any
 
@@ -73,11 +74,14 @@ def load_config(path: str | Path | None) -> AppConfig:
     raw: dict[str, Any] = {}
     if path:
         raw = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
+    data = DataConfig(**raw.get("data", {}))
+    if cache_path := os.getenv("MNQ_CACHE_PATH"):
+        data.cache_path = cache_path
     return AppConfig(
-        data=DataConfig(**raw.get("data", {})),
+        data=data,
         features=FeatureConfig(**raw.get("features", {})),
         model=ModelConfig(**raw.get("model", {})),
         costs=CostConfig(**raw.get("costs", {})),
         risk=RiskConfig(**raw.get("risk", {})),
-        output_dir=raw.get("output_dir", "outputs/run"),
+        output_dir=os.getenv("MNQ_OUTPUT_DIR", raw.get("output_dir", "outputs/run")),
     )

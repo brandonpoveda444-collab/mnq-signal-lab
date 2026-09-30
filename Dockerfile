@@ -1,5 +1,8 @@
 FROM python:3.13-slim
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    MNQ_OUTPUT_DIR=/tmp/mnq-signal-lab/outputs/run \
+    MNQ_CACHE_PATH=/tmp/mnq-signal-lab/work/data_cache.pkl
 WORKDIR /app
 COPY pyproject.toml README.md ./
 COPY src ./src
